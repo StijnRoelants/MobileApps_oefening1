@@ -1,20 +1,42 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      To-do
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" [scrollEvents]='true' (ionScrollStart)="scrollStarted()" (ionScrollEnd)="scrollEnded()">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">To-do</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <ion-list lines="full">
+      <ion-item-sliding *ngFor="let task of tasklist">
+        <ion-item-options side="start">
+          <ion-item-option color="danger">
+            <ion-icon slot="icon-only" name='trash' (click)="deleteTask(task.id)"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+
+          <ion-item>
+          <ion-label>
+            {{task.name}}
+          </ion-label>
+          <ion-icon *ngIf='task.done' name='checkmark-circle' color="success"
+                    (click)="toggleTaskStatus(task.id)"></ion-icon>
+          <ion-icon *ngIf='!task.done' name='checkmark'
+                    (click)="toggleTaskStatus(task.id)"></ion-icon>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+
+  <ion-fab *ngIf="fabIsVisible" [vertical]="verticalFabPosition" horizontal='end' slot='fixed'>
+    <ion-fab-button (click)="presentAlert()" show="false">
+      <ion-icon name='add'></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
