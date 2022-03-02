@@ -1,0 +1,7 @@
+{
+  "name": "Oefening_les2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
