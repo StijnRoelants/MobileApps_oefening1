@@ -3,6 +3,12 @@
     <ion-title>
       To-do
     </ion-title>
+    <ion-select class="ion-padding-horizontal" interface="popover"
+                slot="end" [value]="selectedFilter" (ionChange)='changeFilter($event)'>
+      <ion-select-option *ngFor="let type of filters" [value]="type">
+        {{type}}
+      </ion-select-option>
+    </ion-select>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +20,7 @@
   </ion-header>
 
     <ion-list lines="full">
-      <ion-item-sliding *ngFor="let task of tasklist">
+      <ion-item-sliding *ngFor="let task of getFilteredTask()">
         <ion-item-options side="start">
           <ion-item-option color="danger">
             <ion-icon slot="icon-only" name='trash' (click)="deleteTask(task.id)"></ion-icon>

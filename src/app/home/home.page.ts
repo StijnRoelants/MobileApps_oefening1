@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Filter} from '../../datatypes/filter';
 import { Task } from  'src/datatypes/tasks';
 import {AlertController} from '@ionic/angular';;
 
@@ -12,6 +13,8 @@ export class HomePage {
   id = 0;
   fabIsVisible = true;
   verticalFabPosition = 'bottom';
+  filters = Object.values(Filter);
+  selectedFilter = this.filters[0];
 
   constructor(private alertcontroller: AlertController) {
     for (let i = 0; i < 40; i++) {
@@ -22,6 +25,14 @@ export class HomePage {
       }));
       this.id++;
     }
+  }
+
+  private static taskMatchesFilter(task: Task, filter: Filter): boolean {
+    if (Filter.all === filter) {
+      return true;
+    }
+
+    return filter === Filter.completed && task.done || filter === Filter.toDo && ! task.done;
   }
 
   toggleTaskStatus(id: number): void {
@@ -78,5 +89,13 @@ export class HomePage {
 
   scrollEnded(): void {
     setTimeout(() => this.fabIsVisible = true, 1500);
+  }
+
+  changeFilter($event: any) {
+    this.selectedFilter = $event.target.value;
+  }
+
+  getFilteredTask(): Task[] {
+    return  this.tasklist.filter(t => HomePage.taskMatchesFilter(t, this.selectedFilter));
   }
 }
