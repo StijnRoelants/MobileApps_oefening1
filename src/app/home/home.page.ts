@@ -21,7 +21,8 @@ export class HomePage {
       this.tasklist.push(new Task({
         name: 'Task ' + i,
         done: this.id % 2 === 0,
-        id: this.id
+        id: this.id,
+        description: 'test'
       }));
       this.id++;
     }
@@ -71,9 +72,11 @@ export class HomePage {
 
   newTask(name: string): void {
     this.tasklist.push({
+      deadline: '22/02/2022',
       name,
       id: this.id,
-      done: false
+      done: false,
+      description: 'test'
     });
     this.id++;
     console.log(this.id);

@@ -40,7 +40,7 @@
     </ion-list>
 
   <ion-fab *ngIf="fabIsVisible" [vertical]="verticalFabPosition" horizontal='end' slot='fixed'>
-    <ion-fab-button (click)="presentAlert()" show="false">
+    <ion-fab-button [routerLink]="['task']" >
       <ion-icon name='add'></ion-icon>
     </ion-fab-button>
   </ion-fab>
