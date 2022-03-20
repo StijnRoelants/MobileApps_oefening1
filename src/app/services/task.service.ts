@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ITask, Task} from 'src/datatypes/tasks';
 import {Filter} from '../../datatypes/filter';
+import {Label} from "../../datatypes/label";
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +20,14 @@ export class TaskService {
     return this.tasklist;
   }
 
-  newTask(name: string, description: string, deadline?: string): void {
+  newTask(name: string, description: string, deadline?: string, labels?: Label[]): void {
     this.tasklist.push({
       deadline,
       name,
       id: this.id,
       done: false,
-      description
+      description,
+      labels
     });
     this.id++;
     console.log(this.id);

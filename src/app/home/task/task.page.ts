@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {TaskService} from '../../services/task.service';
 import {ActivatedRoute} from '@angular/router';
+import {LabelService} from "../../services/label.service";
+import {Label} from "../../../datatypes/label";
 
 @Component({
   selector: 'app-task',
@@ -17,8 +19,11 @@ export class TaskPage implements OnInit {
   description: string;
   id?: number = undefined;
   pageName = 'test';
+  labels = this.labelService.getAllLabels();
+  selectedLabels: boolean[] = Array(this.labels.length).fill(false);
 
-  constructor(public navController: NavController, public taskService: TaskService, public activatedRoute: ActivatedRoute){
+  constructor(public navController: NavController, public taskService: TaskService, public activatedRoute: ActivatedRoute,
+  public labelService: LabelService){
     const currentYear: number = (new Date()).getFullYear();
     for (let year = currentYear; year < (currentYear + 50); year++) {
       this.yearValues.push(year);
@@ -44,11 +49,11 @@ export class TaskPage implements OnInit {
     this.deadline = task.deadline;
     this.description = task.description;
     this.done = task.done;
-
+    this.selectedLabels = this.labels.map(l => !! task.labels.find(l2=> l2.id === l.id));
   }
 
   createTask(): void {
-    this.taskService.newTask(this.taskName, this.description, this.deadline);
+    this.taskService.newTask(this.taskName, this.description, this.deadline, this.getSelectedLabels());
   }
 
   updateTask(): void {
@@ -57,7 +62,8 @@ export class TaskPage implements OnInit {
       name: this.taskName,
       deadline: this.deadline,
       description: this.description,
-      done: this.done
+      done: this.done,
+      labels: this.getSelectedLabels()
     });
   }
 
@@ -68,5 +74,9 @@ export class TaskPage implements OnInit {
       this.updateTask();
     }
     this.navController.back();
+  }
+
+  getSelectedLabels(): Label[] {
+    return this.labels.filter((l, i) => this.selectedLabels[i]);
   }
 }

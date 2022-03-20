@@ -32,7 +32,7 @@
     </ion-textarea>
   </ion-item>
 
-  <ion-item lines="full">
+  <ion-item lines="none">
     <ion-label>Deadline</ion-label>
   </ion-item>
 
@@ -40,6 +40,15 @@
     <ion-datetime firstDayOfWeek="1" [yearValues]="yearValues" presentation="date"
                   [(ngModel)]="deadline">
     </ion-datetime>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-label>Labels</ion-label>
+  </ion-item>
+
+  <ion-item lines="none" *ngFor="let l of labels; let i = index">
+    <ion-checkbox slot="start" [color]="l.color" [(ngModel)]="selectedLabels[i]"></ion-checkbox>
+    <ion-label [color]="l.color">{{l.name}}</ion-label>
   </ion-item>
 
 </ion-content>
