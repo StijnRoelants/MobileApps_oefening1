@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ITask, Task} from 'src/datatypes/tasks';
 import {Filter} from '../../datatypes/filter';
-import {Label} from "../../datatypes/label";
+import {Label} from '../../datatypes/label';
 
 @Injectable({
   providedIn: 'root'
@@ -70,5 +70,10 @@ export class TaskService {
   // eslint-disable-next-line @typescript-eslint/member-ordering
   getTask(id: number): Task | undefined {
     return this.tasklist.find(t => t.id === id);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  deleteLabelFromTasks(id): void {
+    this.tasklist.forEach(t => t.labels = t.labels.filter(l => l.id !== id));
   }
 }

@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Labels</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-menu-button menuId="menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item-sliding *ngFor="let l of this.labelService.getAllLabels()">
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="labelService.deleteLabel(l.id)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item lines="full">
+        <ion-label [color]="l.color">
+          {{l.name}}
+        </ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

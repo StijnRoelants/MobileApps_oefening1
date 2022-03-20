@@ -22,4 +22,9 @@ export class LabelService {
   getAllLabels(): Label[] {
     return this.labelList.map(l => ({... l}));
   }
+
+  deleteLabel(id): void {
+    this.labelList = this.labelList.filter(l => l.id !== id);
+    this.taskService.deleteLabelFromTasks(id);
+  }
 }

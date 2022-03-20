@@ -3,6 +3,11 @@
     <ion-title>
       To-do
     </ion-title>
+
+    <ion-buttons slot="start">
+      <ion-menu-button menuId="menu"></ion-menu-button>
+    </ion-buttons>
+
     <ion-select class="ion-padding-horizontal" interface="popover"
                 slot="end" [(ngModel)]="selectedFilter" (ngModelChange)="changeFilter($event)">
       <ion-select-option *ngFor="let type of filters" [value]="type">

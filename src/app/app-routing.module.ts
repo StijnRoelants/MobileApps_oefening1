@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {LabelsPageModule} from "./home/labels/labels.module";
 
 const routes: Routes = [
   {
@@ -10,6 +11,10 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'labels',
+    loadChildren: () => import('./home/labels/labels.module').then( m => m.LabelsPageModule)
   },
 ];
 
