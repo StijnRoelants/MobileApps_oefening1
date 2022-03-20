@@ -13,7 +13,7 @@ export class TaskService {
   constructor() {
   }
 
-  /* Task Cruds */
+  /* Task Crud's */
 
   getAllTasks(): Task[] {
     return this.tasklist;

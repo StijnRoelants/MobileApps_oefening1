@@ -4,7 +4,7 @@
       To-do
     </ion-title>
     <ion-select class="ion-padding-horizontal" interface="popover"
-                slot="end" [value]="selectedFilter" (ionChange)='changeFilter($event)'>
+                slot="end" [(ngModel)]="selectedFilter" (ngModelChange)="changeFilter($event)">
       <ion-select-option *ngFor="let type of filters" [value]="type">
         {{type}}
       </ion-select-option>
